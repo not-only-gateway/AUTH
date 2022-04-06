@@ -3,7 +3,7 @@ from app import db
 from endpoint.models import Endpoint, Access
 from flask import jsonify
 from flask import request
-from manager.models import Manager
+
 from utils import Utils
 
 from api.api import ApiView
@@ -14,20 +14,18 @@ api = ApiView(
     relationships=[],
     db=db
 )
-
-@app.route('/auth/endpoint/<e_id>', methods=['GET', 'PUT', 'DELETE'])
-@app.route('/auth/endpoint', methods=['POST'])
-def endpoint(e_id=None):
+@app.route('/auth/endpoint', methods=['POST', 'GET', 'PUT', 'DELETE'])
+def endpoint():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:
         if request.method == 'GET':
-            return api.get(entity_id=e_id)
+            return api.get(entity_id=request.args.get('identifier', None))
         elif request.method == 'POST':
             return api.post(package=request.json)
         elif request.method == 'PUT':
-            return api.put(entity_id=e_id, package=request.json)
+            return api.put(entity_id=request.json.get('identifier', None), package=request.json)
         elif request.method == 'DELETE':
-            return api.delete(entity_id=e_id)
+            return api.delete(entity_id=request.json.get('identifier', None))
     else:
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 

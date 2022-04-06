@@ -49,7 +49,7 @@ def list_access():
 
 
 
-@app.route('/auth/access_profile/privilege/<e_id>/<f_id>', methods=['POST'])
+@app.route('/auth/access_privilege/<e_id>/<f_id>', methods=['POST'])
 def create_access_privilege(e_id=None, f_id=None):
     data = request.json
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
@@ -63,7 +63,7 @@ def create_access_privilege(e_id=None, f_id=None):
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
 
-@app.route('/auth/access_profile/privilege/<e_id>/<f_id>', methods=['DELETE'])
+@app.route('/auth/access_privilege/<e_id>/<f_id>', methods=['DELETE'])
 def delete_access_privilege(e_id=None, f_id=None):
 
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
@@ -78,7 +78,7 @@ def delete_access_privilege(e_id=None, f_id=None):
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
 
-@app.route('/auth/list/access_profile/privilege', methods=['GET'])
+@app.route('/auth/list/access_privilege', methods=['GET'])
 def list_access_privilege():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:

@@ -10,8 +10,6 @@ import ldap
 from user.models import User
 from active_directory.models import ActiveDirectory
 from sqlalchemy.exc import SQLAlchemyError
-from publisher import publisher_user
-
 
 class Utils:
     @staticmethod
@@ -56,7 +54,6 @@ class Utils:
                         User(new_user)
                     except SQLAlchemyError:
                         pass
-                publisher_user(email)
                 return True
             except ldap.INVALID_CREDENTIALS:
                 l_server.unbind()

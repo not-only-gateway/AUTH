@@ -33,16 +33,61 @@ Tabela referente aos dados do servidor AD/LDAP. Contém informações de conexã
 ___
 
 ### Endpoints:
+- Métodos suportados (padrão API):
+  - GET (Requer argumento "identifier")
+  - POST
+  - DELETE (Requer argumento no corpo do request "identifier")
+  - PUT (Requer argumento no corpo do request "identifier")
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
 
 #### active_directory:
+- Métodos suportados (padrão API):
+  - GET (Requer parâmetro na URL do ID)
+  - POST
+  - DELETE (Requer parâmetro na URL do ID)
+  - PUT (Requer parâmetro na URL do ID)
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
 
 #### authentication:
-
+- Métodos suportados:
+  - GET - Utilizado pelos serviços externos para validar usuário.
+  - POST - Utilizado para efetuar login
 #### privilege:
+- Métodos suportados (padrão API):
+  - GET (Requer parâmetro na URL do ID)
+  - POST
+  - DELETE (Requer parâmetro na URL do ID)
+  - PUT (Requer parâmetro na URL do ID)
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
 
 #### endpoint:
-
+- Métodos suportados (padrão API):
+  - GET (Requer parâmetro na URL do ID)
+  - POST
+  - DELETE (Requer parâmetro na URL do ID)
+  - PUT (Requer parâmetro na URL do ID)
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
+  
 #### access_profile:
+- Métodos suportados (padrão API):
+  - GET (Requer parâmetro na URL do ID)
+  - POST
+  - DELETE (Requer parâmetro na URL do ID)
+  - PUT (Requer parâmetro na URL do ID)
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
+
+#### access_privilege
+- Métodos suportados (padrão API):
+  - POST
+  - DELETE (Requer parâmetro na URL do peril de acesso e do privilégio \[ex: "/auth/access_privilege/1/1"])
+- Suporte a listagem (padrão API):
+  - SIM (/list/ - GET)
+
 
 ___
 
