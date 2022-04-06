@@ -1,0 +1,7 @@
+__pycache__
+*.txt
+*.log
+env.py
+/env.py
+.idea
+/.idea
