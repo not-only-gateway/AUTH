@@ -10,8 +10,8 @@ from utils import Utils
 from api.api import ApiView
 api = ApiView(class_instance=ActiveDirectory, identifier_attr='id', relationships=[], db=db)
 
-@app.route('/auth/active_directory/<e_id>', methods=['GET', 'PUT', 'DELETE'])
-@app.route('/auth/active_directory', methods=['POST'])
+@app.route('/api/active_directory/<e_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/active_directory', methods=['POST'])
 def ad(e_id=None):
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:
@@ -27,7 +27,7 @@ def ad(e_id=None):
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
 
-@app.route('/auth/list/active_directory', methods=['GET'])
+@app.route('/api/list/active_directory', methods=['GET'])
 def list_ad():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:

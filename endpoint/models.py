@@ -29,8 +29,8 @@ class Endpoint(db.Model):
 class Access(db.Model):
     __tablename__ = 'endpoint_privilegio'
 
-    method = db.Column('metodo_http',db.String, nullable=False)
-    endpoint = db.Column('endpoint', db.String,
+    method = db.Column('metodo_http',db.String, nullable=False, primary_key=True)
+    endpoint = db.Column('', db.String,
                          db.ForeignKey('endpoint.url', ondelete='CASCADE'), primary_key=True)
     privilege = db.Column('privilegio', db.BigInteger,
                           db.ForeignKey('privilegio.codigo_id', ondelete='CASCADE'), primary_key=True)

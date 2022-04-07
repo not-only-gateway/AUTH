@@ -11,17 +11,21 @@ app.config[
 db = SQLAlchemy(app)
 CORS(app)
 
+UPLOAD_FOLDER = '/UPLOADS'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 from privilege.models import Privilege
-from profile.models import AccessProfile
 from endpoint.models import Endpoint, Access
 from user.models import User
+from files.model import Upload
+
 from active_directory.models import ActiveDirectory
 from session.models import Session
 from active_directory import views
 from privilege import views
 from session import views
 from endpoint import views
-from profile import views
+from user import views
+from files import view
 
 db.create_all()
 

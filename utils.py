@@ -1,13 +1,9 @@
 import jwt
-import requests
 from endpoint.models import Access, Endpoint
-from simplejson import JSONDecodeError
-from profile.models import AccessProfile, AccessPrivilege
-from manager.models import Manager
 import env
 import ldap
 
-from user.models import User
+from user.models import User, AccessPrivilege
 from active_directory.models import ActiveDirectory
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -28,7 +24,7 @@ class Utils:
                 l_server.simple_bind_s(email, password)
 
                 if user is None:
-                    result = l_server.search_s(ad.base, ldap.SCOPE_SUBTREE, ad.filter, ad.attr)
+                    result = l_server.search_s(ad.base, ldap.SCOPE_SUBTREE, ad.filter, ad.attr.split(', '))
 
                     results = [entry for dn, entry in result if isinstance(entry, dict)]
 
@@ -36,7 +32,7 @@ class Utils:
 
                     for i in results:
                         attributes = {}
-                        for j in ad.attr:
+                        for j in ad.attr.split(', '):
                             if len(i.get(j, {})) > 0:
                                 attributes[j] = i.get(j, {})[0].decode('utf-8')
 
@@ -101,10 +97,8 @@ class Utils:
         decrypted = Utils.decrypt_jwt(token)
         user = User.query.get(decrypted.get('user_email', None)) if decrypted is not None else None
         if user is not None:
-            access_profile = AccessProfile.query.get(
-                user.access_profile) if user.access_profile is not None else None
-            access_profile_privileges = AccessPrivilege.query.filter(
-                AccessPrivilege.access == access_profile.id).all() if access_profile is not None else []
+
+            access_profile_privileges = AccessPrivilege.query.filter(AccessPrivilege.user == user.user_email).all()
             endpoint_required_privileges = Access.query.filter(endpoint == endpoint,
                                                                method == method).all()
             valid = True

@@ -16,11 +16,9 @@ devido a isso o Endpoint irá armazenar como chave primária uma string RegEx co
 #### Access:
 Relação m-m que indica quais privilégios são necessários para autorização ao uso do endpoint.
 
-#### AccessProfile:
-Tabela de controle para acesso do usuário a determinados endpoints.
 
 #### AccessPrivilege:
-Relação m-m que indica quais privilégios estão vinculados ao perfil em questão.
+Relação m-m que indica quais privilégios estão vinculados ao usuário.
 
 
 #### User:
@@ -33,13 +31,7 @@ Tabela referente aos dados do servidor AD/LDAP. Contém informações de conexã
 ___
 
 ### Endpoints:
-- Métodos suportados (padrão API):
-  - GET (Requer argumento "identifier")
-  - POST
-  - DELETE (Requer argumento no corpo do request "identifier")
-  - PUT (Requer argumento no corpo do request "identifier")
-- Suporte a listagem (padrão API):
-  - SIM (/list/ - GET)
+
 
 #### active_directory:
 - Métodos suportados (padrão API):
@@ -84,7 +76,7 @@ ___
 #### access_privilege
 - Métodos suportados (padrão API):
   - POST
-  - DELETE (Requer parâmetro na URL do peril de acesso e do privilégio \[ex: "/auth/access_privilege/1/1"])
+  - DELETE (Requer parâmetro na URL do peril de acesso e do privilégio \[ex: "/api/access_privilege/1/1"])
 - Suporte a listagem (padrão API):
   - SIM (/list/ - GET)
 
@@ -111,7 +103,7 @@ SERVER = "URL SERVIDOR AD/LDAP"
 BASE = 'Base AD'
 FILTER = "Filtro AD"
 
-ATTRS = ["attr1", "attr2", "attr3"]
+ATTRS = "attr1, attr2, attr3"
 # mapa de atributos {keyAD: keyUsuário}
 MAP_ATTR = {}
 DATABASE = "banco_sql_suportado_pelo_flask"

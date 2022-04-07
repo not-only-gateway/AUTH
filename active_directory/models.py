@@ -13,7 +13,7 @@ class ActiveDirectory(db.Model):
     server = db.Column('servidor', db.String, nullable=False)
     filter = db.Column('filtros', db.String, nullable=False)
     base = db.Column('base', db.String, nullable=False)
-    attr = db.Column('atributos', pg.ARRAY(db.String, dimensions=1), nullable=False)
+    attr = db.Column('atributos', db.String, nullable=False)
 
     def update(self, data):
         try:

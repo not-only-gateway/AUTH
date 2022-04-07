@@ -11,7 +11,7 @@ from utils import Utils
 from active_directory.models import ActiveDirectory
 
 
-@app.route('/auth/authentication', methods=['GET'])
+@app.route('/api/authentication', methods=['GET'])
 def authenticate():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.args.get('method', None),
                                  path=request.args.get('path', None))
@@ -21,7 +21,7 @@ def authenticate():
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
 
-@app.route('/auth/authentication', methods=['POST'])
+@app.route('/api/authentication', methods=['POST'])
 def sign_in():
     data = request.json
     base_ad = ActiveDirectory.query.order_by(ActiveDirectory.id.asc()).all()

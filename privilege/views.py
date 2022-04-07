@@ -11,8 +11,8 @@ from utils import Utils
 from api.api import ApiView
 api = ApiView(class_instance=Privilege, identifier_attr='id', relationships=[], db=db)
 
-@app.route('/auth/privilege/<e_id>', methods=['GET', 'PUT', 'DELETE'])
-@app.route('/auth/privilege', methods=['POST'])
+@app.route('/api/privilege/<e_id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/privilege', methods=['POST'])
 def privilege(e_id=None):
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:
@@ -28,7 +28,7 @@ def privilege(e_id=None):
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
 
-@app.route('/auth/list/privilege', methods=['GET'])
+@app.route('/api/list/privilege', methods=['GET'])
 def list_privilege():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.method, path=request.path)
     if allowed:
