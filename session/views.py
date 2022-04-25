@@ -16,7 +16,8 @@ def authenticate():
     allowed = Utils.authenticate(request.headers.get('authorization', None), method=request.args.get('method', None),
                                  path=request.args.get('path', None))
     if allowed:
-        return jsonify({'status': 'success', 'description': 'accepted', 'code': 202}), 202
+        decrypted = Utils.decrypt_jwt(request.headers.get('authorization', None))
+        return jsonify(decrypted), 202
     else:
         return jsonify({'status': 'error', 'description': 'unauthorized', 'code': 401}), 401
 
